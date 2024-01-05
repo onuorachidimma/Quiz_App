@@ -1,3 +1,4 @@
+// QUIZ ARRAY
 const quizArray = [
     {
         question: "What does HTML stand for?",
@@ -76,15 +77,16 @@ const quizArray = [
 
 const quizContainer = document.querySelector(".quizCardContainer");
 
-var addQuizCard = () => {
+// FUNCTION TO DYNAMICALLY ADD THE QUIZ QUESTIONS AND OPTIONS TO THE HTML DOCUMENT
+let addQuizCard = () => {
     for (let quiz = 0; quiz < quizArray.length; quiz++) {
         const div = document.createElement("div");
         div.innerHTML = `<p class="questionIndex">${quiz + 1 + "/" + quizArray.length}</p>
         <p class="question">${quizArray[quiz].question}</p>
-        <p class="questionOption">${quizArray[quiz].questionOption1}</p>
-        <p class="questionOption">${quizArray[quiz].questionOption2}</p>
-        <p class="questionOption">${quizArray[quiz].questionOption3}</p>
-        <p class="questionOption">${quizArray[quiz].questionOption4}</p>
+        <p class="questionOption opt">${quizArray[quiz].questionOption1}</p>
+        <p class="questionOption opt">${quizArray[quiz].questionOption2}</p>
+        <p class="questionOption opt">${quizArray[quiz].questionOption3}</p>
+        <p class="questionOption opt">${quizArray[quiz].questionOption4}</p>
         <div class="nextButtonDiv">
             <button class="nextButton" type="button">NEXT</button>
         </div>`
@@ -95,3 +97,16 @@ var addQuizCard = () => {
     
 };
 addQuizCard();
+
+const chosenOption = document.querySelector(".questionOption");
+const Opt = document.querySelector(".opt")
+// FUNCTION TO HIGHLIGHT SELECTED OPTION
+let selectedOption = () => {
+    Opt.style.cssText = 'color: white; background-color: red;';
+
+}
+chosenOption.addEventListener('click', selectedOption);
+
+// let selectedOpt = () => {
+    
+// }
