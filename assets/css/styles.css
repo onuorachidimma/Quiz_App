@@ -62,4 +62,9 @@ main{
     font-size: 1.3rem;
     border-radius: 10px;
     cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.nextButton:hover{
+    background-color: rgb(173, 166, 166);
 }
