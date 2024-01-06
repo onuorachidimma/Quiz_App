@@ -83,10 +83,10 @@ let addQuizCard = () => {
         const div = document.createElement("div");
         div.innerHTML = `<p class="questionIndex">${quiz + 1 + "/" + quizArray.length}</p>
         <p class="question">${quizArray[quiz].question}</p>
-        <p class="questionOption opt">${quizArray[quiz].questionOption1}</p>
-        <p class="questionOption opt">${quizArray[quiz].questionOption2}</p>
-        <p class="questionOption opt">${quizArray[quiz].questionOption3}</p>
-        <p class="questionOption opt">${quizArray[quiz].questionOption4}</p>
+        <label for="" class="questionOption"><input type="radio" name="option" id="" >${quizArray[quiz].questionOption1}</label>
+        <label for="" class="questionOption"><input type="radio" name="option" id="" >${quizArray[quiz].questionOption2}</label>
+        <label for="" class="questionOption"><input type="radio" name="option" id="" >${quizArray[quiz].questionOption3}</label>
+        <label for="" class="questionOption"><input type="radio" name="option" id="" >${quizArray[quiz].questionOption4}</label>
         <div class="nextButtonDiv">
             <button class="nextButton" type="button">NEXT</button>
         </div>`
@@ -98,15 +98,4 @@ let addQuizCard = () => {
 };
 addQuizCard();
 
-const chosenOption = document.querySelector(".questionOption");
-const Opt = document.querySelector(".opt")
-// FUNCTION TO HIGHLIGHT SELECTED OPTION
-let selectedOption = () => {
-    Opt.style.cssText = 'color: white; background-color: red;';
 
-}
-chosenOption.addEventListener('click', selectedOption);
-
-// let selectedOpt = () => {
-    
-// }

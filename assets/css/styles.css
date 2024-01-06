@@ -36,6 +36,7 @@ main{
 }
 
 .questionOption{
+    display: block;
     margin-top: 1rem;
     background-color: white;
     padding: 1rem;
@@ -46,6 +47,10 @@ main{
 
 .questionOption:hover{
     background-color: #e2e6eb;
+}
+
+input{
+    margin-right: 0.5rem;
 }
 
 .nextButtonDiv{
@@ -64,6 +69,10 @@ main{
     cursor: pointer;
     transition: background-color 0.3s;
 }
+
+/* .opt{
+    background-color: red;
+} */
 
 .nextButton:hover{
     background-color: rgb(173, 166, 166);
