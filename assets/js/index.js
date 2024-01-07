@@ -103,7 +103,15 @@ let showNextQuestion = () => {
         addQuizCard();
     } else {
         // Display this message when all questions are done
-        quizContainer.innerHTML = '<p>All questions completed!</p>';
+        quizContainer.innerHTML = `<fieldset>
+        <legend>CONGRATULATIONS!!!</legend>
+        <p>YOUR SCORE IS</p>
+        <h3>4/5</h3>
+        <button type="button">VIEW FEEDBACK</button>
+        </fieldset>`;
+        document.querySelector(".quizCardContainer").style.backgroundColor = "transparent";
+
+    
     }
 };
 
