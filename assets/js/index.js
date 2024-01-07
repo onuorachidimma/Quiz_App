@@ -74,28 +74,37 @@ const quizArray = [
 ]
 
 
-
-const quizContainer = document.querySelector(".quizCardContainer");
-
 // FUNCTION TO DYNAMICALLY ADD THE QUIZ QUESTIONS AND OPTIONS TO THE HTML DOCUMENT
+const quizContainer = document.querySelector(".quizCardContainer");
+let currentQuizIndex = 0;
+
 let addQuizCard = () => {
-    for (let quiz = 0; quiz < quizArray.length; quiz++) {
-        const div = document.createElement("div");
-        div.innerHTML = `<p class="questionIndex">${quiz + 1 + "/" + quizArray.length}</p>
-        <p class="question">${quizArray[quiz].question}</p>
-        <label for="" class="questionOption"><input type="radio" name="option" id="" >${quizArray[quiz].questionOption1}</label>
-        <label for="" class="questionOption"><input type="radio" name="option" id="" >${quizArray[quiz].questionOption2}</label>
-        <label for="" class="questionOption"><input type="radio" name="option" id="" >${quizArray[quiz].questionOption3}</label>
-        <label for="" class="questionOption"><input type="radio" name="option" id="" >${quizArray[quiz].questionOption4}</label>
-        <div class="nextButtonDiv">
-            <button class="nextButton" type="button">NEXT</button>
-        </div>`
+    const div = document.createElement("div");
+    div.innerHTML = `<p class="questionIndex">${currentQuizIndex + 1}/${quizArray.length}</p>
+    <p class="question">${quizArray[currentQuizIndex].question}</p>
+    <label for="" class="questionOption"><input type="radio" name="option" id="" >${quizArray[currentQuizIndex].questionOption1}</label>
+    <label for="" class="questionOption"><input type="radio" name="option" id="" >${quizArray[currentQuizIndex].questionOption2}</label>
+    <label for="" class="questionOption"><input type="radio" name="option" id="" >${quizArray[currentQuizIndex].questionOption3}</label>
+    <label for="" class="questionOption"><input type="radio" name="option" id="" >${quizArray[currentQuizIndex].questionOption4}</label>
+    <div class="nextButtonDiv">
+        <button class="nextButton" type="button">NEXT</button>
+    </div>`;
 
-        quizContainer.appendChild(div);
-    };
+    quizContainer.innerHTML = '';
+    quizContainer.appendChild(div);
 
-    
+    const nextButton = document.querySelector(".nextButton");
+    nextButton.addEventListener('click', showNextQuestion);
 };
+
+let showNextQuestion = () => {
+    currentQuizIndex++;
+    if (currentQuizIndex < quizArray.length) {
+        addQuizCard();
+    } else {
+        // Display this message when all questions are done
+        quizContainer.innerHTML = '<p>All questions completed!</p>';
+    }
+};
+
 addQuizCard();
-
-
