@@ -62,7 +62,7 @@ const quizArray = [
         questionOption2: "ol",
         questionOption3: "li",
         questionOption4: "list",
-        correctAnswer: 2
+        correctAnswer: 1
     },
     {
         question: "What is the purpose of the alt attribute in the HTML <img> tag?",
@@ -83,19 +83,18 @@ const quizArray = [
 
 ]
 
-
-// FUNCTION TO DYNAMICALLY ADD THE QUIZ QUESTIONS AND OPTIONS TO THE HTML DOCUMENT
 const quizContainer = document.querySelector(".quizCardContainer");
 let currentQuizIndex = 0;
+let score = 0; // Initialize the score variable
 
 let addQuizCard = () => {
     const div = document.createElement("div");
     div.innerHTML = `<p class="questionIndex">${currentQuizIndex + 1}/${quizArray.length}</p>
     <p class="question">${quizArray[currentQuizIndex].question}</p>
-    <label for="" class="questionOption"><input type="radio" name="option" id="" >${quizArray[currentQuizIndex].questionOption1}</label>
-    <label for="" class="questionOption"><input type="radio" name="option" id="" >${quizArray[currentQuizIndex].questionOption2}</label>
-    <label for="" class="questionOption"><input type="radio" name="option" id="" >${quizArray[currentQuizIndex].questionOption3}</label>
-    <label for="" class="questionOption"><input type="radio" name="option" id="" >${quizArray[currentQuizIndex].questionOption4}</label>
+    <label for="" class="questionOption"><input type="radio" name="option${currentQuizIndex}" id="option1">${quizArray[currentQuizIndex].questionOption1}</label>
+    <label for="" class="questionOption"><input type="radio" name="option${currentQuizIndex}" id="option2">${quizArray[currentQuizIndex].questionOption2}</label>
+    <label for="" class="questionOption"><input type="radio" name="option${currentQuizIndex}" id="option3">${quizArray[currentQuizIndex].questionOption3}</label>
+    <label for="" class="questionOption"><input type="radio" name="option${currentQuizIndex}" id="option4">${quizArray[currentQuizIndex].questionOption4}</label>
     <div class="nextButtonDiv">
         <button class="nextButton" type="button">NEXT</button>
     </div>`;
@@ -107,38 +106,38 @@ let addQuizCard = () => {
     nextButton.addEventListener('click', showNextQuestion);
 };
 
-let calculateScore = () => {
-    let score = 0;
-    for (let i = 0; i < quizArray.length; i++) {
-        const selectedOption = document.querySelector(`input[name="option"]:checked`);
-        if (selectedOption) {
-            const selectedOptionIndex = parseInt(selectedOption.value);
-            if (selectedOptionIndex === quizArray[i].correctAnswer) {
-                score++;
-            }
+const calculateScore = () => {
+    const selectedOption = document.querySelector(`input[name="option${currentQuizIndex}"]:checked`);
+    if (selectedOption) {
+        const userAnswer = parseInt(selectedOption.id.slice(-1));
+        if (userAnswer === quizArray[currentQuizIndex].correctAnswer) {
+            score++; // Increase the score if the answer is correct
         }
     }
-    return score;
 };
 
 let showNextQuestion = () => {
-    currentQuizIndex++;
-    if (currentQuizIndex < quizArray.length) {
-        addQuizCard();
-    } else {
-        // Display this message when all questions are done
-        const score = calculateScore();
-        quizContainer.innerHTML = `<fieldset>
-        <legend>CONGRATULATIONS!!!</legend>
-        <p>YOUR SCORE IS</p>
-        <h3>${score}/${quizArray.length}</h3>
-        <button type="button">VIEW FEEDBACK</button>
-        </fieldset>`;
-        document.querySelector(".quizCardContainer").style.backgroundColor = "transparent";
+    const selectedOption = document.querySelector(`input[name="option${currentQuizIndex}"]:checked`);
 
-    
+    if (!selectedOption) {
+        alert("Please choose an answer");
+    } else {
+        calculateScore(); // Calculate the score before moving to the next question
+        currentQuizIndex++;
+
+        if (currentQuizIndex < quizArray.length) {
+            addQuizCard();
+        } else {
+            // Display this message when all questions are done
+            quizContainer.innerHTML = `<fieldset>
+            <legend>CONGRATULATIONS!!!</legend>
+            <p>YOUR SCORE IS</p>
+            <h3>${score}/${quizArray.length}</h3>
+            <button type="button">VIEW FEEDBACK</button>
+            </fieldset>`;
+            document.querySelector(".quizCardContainer").style.backgroundColor = "transparent";
+        }
     }
 };
 
 addQuizCard();
-
