@@ -86,6 +86,8 @@ const quizArray = [
 const quizContainer = document.querySelector(".quizCardContainer");
 let currentQuizIndex = 0;
 let score = 0; // Initialize the score variable
+let timeRemaining = 600; // 10 minutes in seconds
+let timerInterval;
 
 let addQuizCard = () => {
     const div = document.createElement("div");
@@ -111,33 +113,74 @@ const calculateScore = () => {
     if (selectedOption) {
         const userAnswer = parseInt(selectedOption.id.slice(-1));
         if (userAnswer === quizArray[currentQuizIndex].correctAnswer) {
-            score++; // Increase the score if the answer is correct
+            score++;
         }
     }
 };
 
+const countDownTimer = document.getElementById("countDown")
+
+const updateTimer = () => {
+    const minutes = Math.floor(timeRemaining / 60);
+    const seconds = timeRemaining % 60;
+    const timerDisplay = document.querySelector(".timerDisplay");
+
+    // Check if the h3 element already exists
+    let h3 = countDownTimer.querySelector("h3");
+
+    // If it doesn't exist, create a new one
+    if (!h3) {
+        h3 = document.createElement("h3");
+        countDownTimer.appendChild(h3);
+    }
+
+    // Update the text content of the existing h3 element
+    h3.innerText = `Time remaining ${minutes + "min"} : ${seconds + "s"}`;
+};
+
+
+
+const startTimer = () => {
+    timerInterval = setInterval(() => {
+        if (timeRemaining > 0) {
+            timeRemaining--;
+            updateTimer();
+        } else {
+            clearInterval(timerInterval);
+            showScorePage();
+        }
+    }, 1000);
+};
+
 let showNextQuestion = () => {
     const selectedOption = document.querySelector(`input[name="option${currentQuizIndex}"]:checked`);
-
+    
     if (!selectedOption) {
         alert("Please choose an answer");
     } else {
-        calculateScore(); // Calculate the score before moving to the next question
+        calculateScore();
         currentQuizIndex++;
 
         if (currentQuizIndex < quizArray.length) {
             addQuizCard();
         } else {
-            // Display this message when all questions are done
-            quizContainer.innerHTML = `<fieldset>
-            <legend>CONGRATULATIONS!!!</legend>
-            <p>YOUR SCORE IS</p>
-            <h3>${score}/${quizArray.length}</h3>
-            <button type="button">VIEW FEEDBACK</button>
-            </fieldset>`;
-            document.querySelector(".quizCardContainer").style.backgroundColor = "transparent";
+            clearInterval(timerInterval); // Stop the timer
+            showScorePage();
         }
     }
 };
 
+const showScorePage = () => {
+    quizContainer.innerHTML = `<div class="timerDisplay"></div>
+        <fieldset>
+        <legend>CONGRATULATIONS!!!</legend>
+        <p>YOUR SCORE IS</p>
+        <h3>${score}/${quizArray.length}</h3>
+        <p>Time Remaining: ${Math.floor(timeRemaining / 60) + "min"} : ${timeRemaining % 60 + "s"}</p>
+        <button type="button">VIEW FEEDBACK</button>
+    </fieldset>`;
+    document.querySelector(".quizCardContainer").style.backgroundColor = "transparent";
+};
+
+startTimer();
 addQuizCard();
