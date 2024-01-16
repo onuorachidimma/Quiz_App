@@ -35,8 +35,6 @@ The quiz questions are stored in an array named `quizArray`. Each question objec
 - The `showScorePage` function displays the final score, time remaining, and a "Back to Quiz" button.
 - The "Back to Quiz" button resets the quiz, bringing the user back to the start page.
 
-## Instructions for Running the Application:
-
 ## Design and Functionality Insights:
 
 ### Dynamic Card Creation:
