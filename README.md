@@ -1,35 +1,73 @@
-### Project Work for December Break
+# Quiz Application Documentation
 
-**Objective:**
-Develop a web-based quiz application using JavaScript to assess the candidate's proficiency in JavaScript programming and front-end development.
+## Features:
 
-**Requirements:**
+### Quiz Questions Array:
 
-*Quiz Functionality:*
-- Create a set of at least 10 questions with multiple-choice answers.
-- Develop a dynamic quiz interface that displays one question at a time.
-- Utilize JavaScript for handling user input, transitioning between questions, and managing the quiz flow.
+The quiz questions are stored in an array named `quizArray`. Each question object includes the question statement, multiple-choice options, and the correct answer.
 
-*Scoring System:*
-- Implement a scoring system to evaluate user responses.
-- Display the user's score upon completion of the quiz.
-- Provide instant feedback on each question, indicating correctness.
+### Introduction and Start Button:
 
-*Timer Functionality:*
-- Clearly communicate the time remaining to the user.
+- The introduction container (`introContainer`) and the start button (`startButton`) are selected from the DOM.
+- An event listener is added to the start button, triggering the start of the quiz by hiding the introduction and initiating the timer.
 
-*User Interface:*
-- Apply basic styling to enhance the visual appeal of the quiz.
-- Ensure a responsive layout for optimal user experience on different devices.
+### Dynamic Quiz Card Creation:
 
-**Challenges:**
-Anticipate and address potential challenges related to user input handling, dynamic content updates, and overall application responsiveness.
+- The `addQuizCard` function dynamically creates and displays quiz cards with questions and multiple-choice options.
+- Each card includes an index indicator, the question, radio buttons for options, and a "Next" button.
 
-**Submission Guidelines:**
-Please submit a well-documented codebase with clear explanations of the implemented features, and include any necessary instructions for running the application. Also, provide insights into your decision-making process regarding design and functionality.
+### Scoring Mechanism:
 
-**Evaluation Criteria:**
-- **JavaScript Proficiency:** Effective use of JavaScript for quiz functionality and user interaction.
-- **Scalability and Modularity:** Well-organized and modular code to handle potential future enhancements.
-- **User Experience:** Consideration for user interface design, responsiveness, and overall user experience.
-- **Problem Solving:** Ability to anticipate and address challenges related to quiz development.
+- The `calculateScore` function determines if the selected answer is correct, updating the score accordingly.
+
+### Countdown Timer:
+
+- The `startTimer` function initiates a countdown timer with a specified time limit (5 minutes in this case).
+- The timer is updated every second using the `setInterval` method, and the `updateTimer` function displays the remaining time.
+
+### Next Button and Navigation:
+
+- The "Next" button triggers the `showNextQuestion` function, which calculates the score, increments the question index, and updates the quiz card.
+- An alert is shown if no option is selected before clicking "Next."
+
+### Score Page:
+
+- The `showScorePage` function displays the final score, time remaining, and a "Back to Quiz" button.
+- The "Back to Quiz" button resets the quiz, bringing the user back to the start page.
+
+## Instructions for Running the Application:
+
+## Design and Functionality Insights:
+
+### Dynamic Card Creation:
+
+The decision to dynamically create quiz cards allows for a clean and organized presentation of questions and options.
+
+### Scoring Mechanism:
+
+The scoring mechanism ensures accurate tracking of the user's performance throughout the quiz.
+
+### Countdown Timer:
+
+A countdown timer adds a sense of urgency and enhances the quiz experience. It also prevents users from taking an unlimited amount of time.
+
+### User Interaction:
+
+The use of alerts for unselected options and the "Next" button provides clear feedback to users, guiding them through the quiz.
+
+### Reset and Navigation:
+
+The "Back to Quiz" button on the score page allows users to reset the quiz and start again, providing a seamless navigation experience.
+
+### CSS Styling:
+
+Simple and clean styling enhances readability and ensures a pleasant visual experience for users.
+
+---
+
+*Note: The quiz app design was obtained from Figma community, designed by Mahmood Khan.*
+[Design Link](https://www.figma.com/community/file/1143382230014054157)
+![Original design screenshot](./chrome_3gxAI03PGr.png)
+
+
+This quiz application aims to provide an engaging and user-friendly experience, with a focus on clarity in design and functionality.
