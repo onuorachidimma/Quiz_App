@@ -82,14 +82,21 @@ const quizArray = [
     }
 
 ]
+const introContainer = document.querySelector(".intro");
+const startButton = document.querySelector(".startButton");
+startButton.addEventListener('click', function() {  //Function for the timer to start counting down once the start button is clicked 
+    introContainer.style.display = "none";
+    startTimer();
+    addQuizCard();
+});
 
 const quizContainer = document.querySelector(".quizCardContainer");
 let currentQuizIndex = 0;
 let score = 0; // Initialize the score variable
-let timeRemaining = 600; // 10 minutes in seconds
+let timeRemaining = 300; // 5 minutes in seconds
 let timerInterval;
 
-let addQuizCard = () => {
+let addQuizCard = () => {  //Function to dynamically add the quizes one after the other
     const div = document.createElement("div");
     div.innerHTML = `<p class="questionIndex">${currentQuizIndex + 1}/${quizArray.length}</p>
     <p class="question">${quizArray[currentQuizIndex].question}</p>
@@ -108,7 +115,9 @@ let addQuizCard = () => {
     nextButton.addEventListener('click', showNextQuestion);
 };
 
-const calculateScore = () => {
+
+
+const calculateScore = () => { //Function to calculate the score
     const selectedOption = document.querySelector(`input[name="option${currentQuizIndex}"]:checked`);
     if (selectedOption) {
         const userAnswer = parseInt(selectedOption.id.slice(-1));
@@ -120,19 +129,22 @@ const calculateScore = () => {
 
 const countDownTimer = document.getElementById("countDown")
 
-const updateTimer = () => {
+const updateTimer = () => { //Function to display the remaining time when quiz ends
     const minutes = Math.floor(timeRemaining / 60);
     const seconds = timeRemaining % 60;
     const timerDisplay = document.querySelector(".timerDisplay");
 
     // Check if the h3 element already exists
     let h3 = countDownTimer.querySelector("h3");
-
+    
     // If it doesn't exist, create a new one
     if (!h3) {
         h3 = document.createElement("h3");
         countDownTimer.appendChild(h3);
     }
+
+    // Add a class to the h3 element
+    h3.classList.add("countDownTime");
 
     // Update the text content of the existing h3 element
     h3.innerText = `Time remaining ${minutes + "min"} : ${seconds + "s"}`;
@@ -140,7 +152,7 @@ const updateTimer = () => {
 
 
 
-const startTimer = () => {
+const startTimer = () => {  //Function to control the speed of countdown
     timerInterval = setInterval(() => {
         if (timeRemaining > 0) {
             timeRemaining--;
@@ -152,7 +164,7 @@ const startTimer = () => {
     }, 1000);
 };
 
-let showNextQuestion = () => {
+let showNextQuestion = () => {  //Function that controls the Next button
     const selectedOption = document.querySelector(`input[name="option${currentQuizIndex}"]:checked`);
     
     if (!selectedOption) {
@@ -170,17 +182,24 @@ let showNextQuestion = () => {
     }
 };
 
-const showScorePage = () => {
+
+const showScorePage = () => { //Function that calculates and displays the remaining time when timer stops
+    document.querySelector(".countDownTime").style.display = "none"; //Removes the timer
     quizContainer.innerHTML = `<div class="timerDisplay"></div>
         <fieldset>
         <legend>CONGRATULATIONS!!!</legend>
         <p>YOUR SCORE IS</p>
-        <h3>${score}/${quizArray.length}</h3>
+        <h2>${score}/${quizArray.length}</h2>
         <p>Time Remaining: ${Math.floor(timeRemaining / 60) + "min"} : ${timeRemaining % 60 + "s"}</p>
-        <button type="button">VIEW FEEDBACK</button>
+        
     </fieldset>`;
+
+    // Click "Back to Quiz"  button to go back to the main quiz screen
+        const backButton = document.createElement("button");
+        backButton.classList.add("nextButton")
+        backButton.innerText = "Back to Quiz";
+        backButton.addEventListener("click", addQuizCard);
+        quizContainer.appendChild(backButton);
+        backButton.style.marginLeft = "35%"
     document.querySelector(".quizCardContainer").style.backgroundColor = "transparent";
 };
-
-startTimer();
-addQuizCard();
