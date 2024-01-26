@@ -100,10 +100,10 @@ let addQuizCard = () => {  //Function to dynamically add the quizes one after th
     const div = document.createElement("div");
     div.innerHTML = `<p class="questionIndex">${currentQuizIndex + 1}/${quizArray.length}</p>
     <p class="question">${quizArray[currentQuizIndex].question}</p>
-    <label for="" class="questionOption"><input type="radio" name="option${currentQuizIndex}" id="option1">${quizArray[currentQuizIndex].questionOption1}</label>
-    <label for="" class="questionOption"><input type="radio" name="option${currentQuizIndex}" id="option2">${quizArray[currentQuizIndex].questionOption2}</label>
-    <label for="" class="questionOption"><input type="radio" name="option${currentQuizIndex}" id="option3">${quizArray[currentQuizIndex].questionOption3}</label>
-    <label for="" class="questionOption"><input type="radio" name="option${currentQuizIndex}" id="option4">${quizArray[currentQuizIndex].questionOption4}</label>
+    <label for="option1" class="questionOption"><input type="radio" name="option${currentQuizIndex}" id="option1">${quizArray[currentQuizIndex].questionOption1}</label>
+    <label for="option2" class="questionOption"><input type="radio" name="option${currentQuizIndex}" id="option2">${quizArray[currentQuizIndex].questionOption2}</label>
+    <label for="option3" class="questionOption"><input type="radio" name="option${currentQuizIndex}" id="option3">${quizArray[currentQuizIndex].questionOption3}</label>
+    <label for="option4" class="questionOption"><input type="radio" name="option${currentQuizIndex}" id="option4">${quizArray[currentQuizIndex].questionOption4}</label>
     <div class="nextButtonDiv">
         <button class="nextButton" type="button">NEXT</button>
     </div>`;
@@ -147,7 +147,7 @@ const updateTimer = () => { //Function to display the remaining time when quiz e
     h3.classList.add("countDownTime");
 
     // Update the text content of the existing h3 element
-    h3.innerText = `Time remaining ${minutes + "min"} : ${seconds + "s"}`;
+    h3.innerText = `${minutes + "min"} : ${seconds + "s"}`;
 };
 
 
@@ -187,7 +187,7 @@ const showScorePage = () => { //Function that calculates and displays the remain
     document.querySelector(".countDownTime").style.display = "none"; //Removes the timer
     quizContainer.innerHTML = `<div class="timerDisplay"></div>
         <fieldset>
-        <legend>CONGRATULATIONS!!!</legend>
+        <legend>WELLDONE!!!</legend>
         <p>YOUR SCORE IS</p>
         <h2>${score}/${quizArray.length}</h2>
         <p>Time Remaining: ${Math.floor(timeRemaining / 60) + "min"} : ${timeRemaining % 60 + "s"}</p>
@@ -199,7 +199,6 @@ const showScorePage = () => { //Function that calculates and displays the remain
         backButton.classList.add("nextButton")
         backButton.innerText = "Back to Quiz";
         backButton.addEventListener("click", addQuizCard);
-        quizContainer.appendChild(backButton);
-        backButton.style.marginLeft = "35%"
+        quizContainer.appendChild(backButton);        
     document.querySelector(".quizCardContainer").style.backgroundColor = "transparent";
 };
